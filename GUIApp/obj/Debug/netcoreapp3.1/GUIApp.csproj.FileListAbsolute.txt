@@ -1,0 +1,13 @@
+C:\Users\rperg\Desktop\C# gui thing\GUIApp\bin\Debug\netcoreapp3.1\GUIApp.exe
+C:\Users\rperg\Desktop\C# gui thing\GUIApp\bin\Debug\netcoreapp3.1\GUIApp.deps.json
+C:\Users\rperg\Desktop\C# gui thing\GUIApp\bin\Debug\netcoreapp3.1\GUIApp.runtimeconfig.json
+C:\Users\rperg\Desktop\C# gui thing\GUIApp\bin\Debug\netcoreapp3.1\GUIApp.runtimeconfig.dev.json
+C:\Users\rperg\Desktop\C# gui thing\GUIApp\bin\Debug\netcoreapp3.1\GUIApp.dll
+C:\Users\rperg\Desktop\C# gui thing\GUIApp\bin\Debug\netcoreapp3.1\GUIApp.pdb
+C:\Users\rperg\Desktop\C# gui thing\GUIApp\obj\Debug\netcoreapp3.1\GUIApp.csprojAssemblyReference.cache
+C:\Users\rperg\Desktop\C# gui thing\GUIApp\obj\Debug\netcoreapp3.1\GUIApp.AssemblyInfoInputs.cache
+C:\Users\rperg\Desktop\C# gui thing\GUIApp\obj\Debug\netcoreapp3.1\GUIApp.AssemblyInfo.cs
+C:\Users\rperg\Desktop\C# gui thing\GUIApp\obj\Debug\netcoreapp3.1\GUIApp.csproj.CoreCompileInputs.cache
+C:\Users\rperg\Desktop\C# gui thing\GUIApp\obj\Debug\netcoreapp3.1\GUIApp.dll
+C:\Users\rperg\Desktop\C# gui thing\GUIApp\obj\Debug\netcoreapp3.1\GUIApp.pdb
+C:\Users\rperg\Desktop\C# gui thing\GUIApp\obj\Debug\netcoreapp3.1\GUIApp.genruntimeconfig.cache

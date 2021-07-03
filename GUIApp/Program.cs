@@ -5,27 +5,59 @@ namespace GUIApp
 {
     class Program
     {
+        enum mode {General, Calculator, Compiler, File};
+        static int currentMode = (int)mode.General;
         static void Main(string[] args)
         {
             while(true) {
-                Console.Write("Enter Command: ");
-                string input = Console.ReadLine();
+                if(currentMode == (int)mode.General) {
+                    Console.Write("Enter Command: ");
+                    string input = Console.ReadLine();
 
-                string[] splitInput = input.Split(" ");
+                    string[] splitInput = input.Split(" ");
 
-                Console.WriteLine(readCommand(splitInput));
+                    Console.WriteLine(readCommand(splitInput));
+                }
+                else if(currentMode == (int)mode.File) {
+                    Console.Write("Enter File Action: ");
+                    string input = Console.ReadLine();
+
+                    string[] splitInput = input.Split(" ");
+
+                    Console.WriteLine(readFileCommand(splitInput));
+                }
             }
         }
 
         static string readCommand(string[] input) {
             string command = input[0].ToLower();
             string output = "";
-
             switch(command) {
+                case "filemode":
+                    currentMode = (int)mode.File;
+                    break;
                 case "print":
                     for(int i = 1; i <= input.Length - 1; i++) 
                         output += input[i] + " ";
                     break;
+                case "exit":
+                    Console.Write("Are you sure? (y/n): ");
+                    if(Console.ReadLine() == "y")
+                        System.Environment.Exit(1);
+                    break;
+                default:
+                    output = "Command not found";
+                    break;
+            }
+
+            return output;
+        }
+    
+        static string readFileCommand(string[] input) {
+            string command = input[0].ToLower();
+            string output = "";
+
+            switch(command) {
                 case "read":
                     String line;
                     try {
@@ -42,10 +74,10 @@ namespace GUIApp
                         sr.Close();
                     }
                     catch(Exception e) {
-                        Console.WriteLine("Exception Occured: " + e.Message);
+                        output = "Exception Occured: " + e.Message;
                     }
                     break;
-                case "settext":
+                case "overwrite":
                     string fileWrite = "";
                     try {
                         StreamWriter sw = new StreamWriter("C:\\Users\\rperg\\Desktop\\C# gui thing\\GUIApp\\" + input[1]);
@@ -60,9 +92,9 @@ namespace GUIApp
                         sw.Close();
                     }
                     catch(Exception e) {
-                        Console.WriteLine("Exception: " + e.Message);
+                        output = "Exception: " + e.Message;
                     }
-                    Console.WriteLine("Wrote " + fileWrite + "to " + input[1]);
+                    output = "Wrote " + fileWrite + "to " + input[1];
                     break;
                 case "append":
                     string appendText = "";
@@ -79,35 +111,32 @@ namespace GUIApp
                         sw.Close();
                     }
                     catch(Exception e) {
-                        Console.WriteLine("Exception: " + e.Message);
+                        output = "Exception: " + e.Message;
                     }
-                    Console.WriteLine("Appended " + appendText + "to " + input[1]);
+                    output = "Appended " + appendText + "to " + input[1];
                     break;
                 case "create":
                     try {
                         File.WriteAllLines("C:\\Users\\rperg\\Desktop\\C# gui thing\\GUIApp\\" + input[1], new string[] {""});
-                        Console.WriteLine("Created file " + input[1]);
+                        output = "Created file " + input[1];
                     }
                     catch(Exception e) {
-                        Console.WriteLine(e.Message);
+                        output = e.Message;
                     }
                     break;
                 case "delete":
                     try {
                         File.Delete("C:\\Users\\rperg\\Desktop\\C# gui thing\\GUIApp\\" + input[1]);
-                        Console.WriteLine("Deleted file " + input[1]);
+                        output = "Deleted file " + input[1];
                     }
                     catch(Exception e) {
-                        Console.WriteLine(e.Message);
+                        output = e.Message;
                     }
                     break;
                 case "exit":
-                    Console.Write("Are you sure? (y/n): ");
+                    Console.Write("Are you sure you want to exit FILE MODE? (y/n): ");
                     if(Console.ReadLine() == "y")
-                        System.Environment.Exit(1);
-                    break;
-                default:
-                    output = "Command not found";
+                        currentMode = (int)mode.General;
                     break;
             }
 

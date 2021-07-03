@@ -33,15 +33,20 @@ namespace GUIApp
             string command = input[0].ToLower();
             string output = "";
             switch(command) {
-                case "filemode":
-                    currentMode = (int)mode.File;
+                case "mode":
+                    if(input[1].ToLower() == "file") {
+                        currentMode = (int)mode.File;
+                        output = "Sending you to file mode...";
+                    }
+                    else
+                        output = "Mode not found";
                     break;
                 case "print":
                     for(int i = 1; i <= input.Length - 1; i++) 
                         output += input[i] + " ";
                     break;
                 case "exit":
-                    Console.Write("Are you sure? (y/n): ");
+                    Console.Write("Are you sure you want to exit? (y/n): ");
                     if(Console.ReadLine() == "y")
                         System.Environment.Exit(1);
                     break;

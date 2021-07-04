@@ -60,6 +60,11 @@ namespace GUIApp
                     for(int i = 1; i <= input.Length - 1; i++) 
                         output += input[i] + " ";
                     break;
+                case "clear":
+                    Console.WriteLine("Clearing Console...");
+                    Thread.Sleep(1000);
+                    Console.Clear();
+                    break;
                 case "exit":
                     Console.Write("Are you sure you want to exit? (y/n): ");
                     if(Console.ReadLine() == "y")

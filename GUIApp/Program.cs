@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using System.Threading;
 using System.Collections.Generic;
 
@@ -12,6 +13,9 @@ namespace GUIApp
         static void Main(string[] args)
         {
             Initialize();
+
+            Login();
+
             while(true) {
                 if(currentMode == (int)mode.General) {
                     Console.Write("Enter Command: ");
@@ -235,7 +239,7 @@ namespace GUIApp
             return output;
         }
 
-        static void Initialize() {
+        static void Initialize() { 
             Console.Clear();
             Thread.Sleep(1000);
             Console.WriteLine("Please wait");
@@ -250,6 +254,32 @@ namespace GUIApp
             Console.WriteLine("Please wait...");
             Thread.Sleep(250);
             Console.Clear();
+        }
+        
+        static void Login() {
+            Console.Write("Enter Password: ");
+
+            string pass = null;
+
+            while(true) {
+                var key = Console.ReadKey(true);
+                if(key.Key == ConsoleKey.Enter)
+                    break;
+                pass += key.KeyChar;
+            }
+
+
+            if(System.Convert.ToBase64String(Encoding.UTF8.GetBytes(pass)) == "cG9vcG9vNjlsb2w=") {
+                Thread.Sleep(750);
+                Console.Clear();
+                Console.WriteLine("Welcome, Rpergy");
+            }
+            else {
+                Thread.Sleep(750);
+                Console.WriteLine("\nWrong Password...\nTerminating program");
+                Thread.Sleep(1500);
+                System.Environment.Exit(69);
+            }
         }
     }
 }

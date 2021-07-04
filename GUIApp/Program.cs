@@ -265,6 +265,7 @@ namespace GUIApp
                 var key = Console.ReadKey(true);
                 if(key.Key == ConsoleKey.Enter)
                     break;
+                Console.Write("*");
                 pass += key.KeyChar;
             }
 

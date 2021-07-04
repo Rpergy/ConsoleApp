@@ -1,14 +1,17 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
+using System.Collections.Generic;
 
 namespace GUIApp
 {
     class Program
     {
-        enum mode {General, Calculator, Compiler, File};
+        enum mode {General, Calculator, File};
         static int currentMode = (int)mode.General;
         static void Main(string[] args)
         {
+            Initialize();
             while(true) {
                 if(currentMode == (int)mode.General) {
                     Console.Write("Enter Command: ");
@@ -26,6 +29,14 @@ namespace GUIApp
 
                     Console.WriteLine(readFileCommand(splitInput));
                 }
+                else if(currentMode == (int)mode.Calculator) {
+                    Console.Write("Enter Equation: ");
+                    string input = Console.ReadLine();
+
+                    char[] splitInput = input.ToCharArray();
+
+                    Console.WriteLine(readEquation(splitInput));
+                }
             }
         }
 
@@ -37,6 +48,10 @@ namespace GUIApp
                     if(input[1].ToLower() == "file") {
                         currentMode = (int)mode.File;
                         output = "Sending you to file mode...";
+                    }
+                    else if(input[1].ToLower() == "calculator") {
+                        currentMode = (int)mode.Calculator;
+                        output = "Sending you to calculator mode...";
                     }
                     else
                         output = "Mode not found";
@@ -146,6 +161,90 @@ namespace GUIApp
             }
 
             return output;
+        }
+    
+        static string readEquation(char[] input) {
+            string output = "";
+
+            if(string.Join("", input) == "exit") {
+                Console.Write("Are you sure you want to exit CALCULATOR MODE? (y/n): ");
+                if(Console.ReadLine() == "y") {
+                    currentMode = (int)mode.General;
+                    return "Exiting CALCULATOR MODE...";
+                }
+            }
+
+            input = removeSpaces(input);
+
+            List<string> equation = new List<string>();
+            string currentTerm = "";
+            for(int i = 0; i < input.Length; i++) {
+                if(input[i] == '+' || input[i] == '-' || input[i] == '*' || input[i] == '/') {
+                    equation.Add(currentTerm);
+                    equation.Add(input[i].ToString());
+                    currentTerm = "";
+                }
+                else
+                    currentTerm += input[i];
+            }
+            equation.Add(currentTerm);
+
+            try{
+                if(equation[1] == "+") 
+                    output = (Int32.Parse(equation[0]) + Int32.Parse(equation[2])).ToString();
+                else if(equation[1] == "-") 
+                    output = (Int32.Parse(equation[0]) - Int32.Parse(equation[2])).ToString(); 
+                else if(equation[1] == "*") 
+                    output = (Int32.Parse(equation[0]) * Int32.Parse(equation[2])).ToString(); 
+                else if(equation[1] == "/") 
+                    output = (Int32.Parse(equation[0]) / Int32.Parse(equation[2])).ToString();
+                else
+                    output = "Operation not recognized";
+            }
+            catch {
+                output = "Equation failed. Please try again";
+            }
+
+            return output;
+        }
+
+        static char[] removeSpaces(char[] input) {
+            char[] output;
+            int spaceCount = 0;
+
+            for(int i = 0; i < input.Length; i++) {
+                if(input[i] == ' ')
+                    spaceCount++;
+            }
+            output = new char[input.Length - spaceCount];
+
+            int ii = 0;
+
+            for(int i = 0; i < input.Length; i++) {
+                if(input[i] != ' ') {
+                    output[ii] = input[i];
+                    ii++;
+                }
+            }
+
+            return output;
+        }
+
+        static void Initialize() {
+            Console.Clear();
+            Thread.Sleep(1000);
+            Console.WriteLine("Please wait");
+            Thread.Sleep(250);
+            Console.Clear();
+            Console.WriteLine("Please wait.");
+            Thread.Sleep(250);
+            Console.Clear();
+            Console.WriteLine("Please wait..");
+            Thread.Sleep(250);
+            Console.Clear();
+            Console.WriteLine("Please wait...");
+            Thread.Sleep(250);
+            Console.Clear();
         }
     }
 }

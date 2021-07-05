@@ -8,8 +8,13 @@ namespace GUIApp
 {
     class Program
     {
-        enum mode {General, Calculator, File};
+        enum mode {General, Calculator, File, Games};
+        enum gameMode {noGame, RPS};
+
         static int currentMode = (int)mode.General;
+
+        static int currentGame = (int)gameMode.noGame;
+
         static void Main(string[] args)
         {
             Initialize();
@@ -41,6 +46,18 @@ namespace GUIApp
 
                     Console.WriteLine(readEquation(splitInput));
                 }
+                else if(currentMode == (int)mode.Games) {
+                    if(currentGame == (int)gameMode.RPS)
+                        playRPS();
+                    else if(currentGame == (int)gameMode.noGame) {
+                        Console.Write("Which game would you like to play: ");
+                        string input = Console.ReadLine();
+
+                        string[] splitInput = input.Split(" ");
+
+                        Console.WriteLine(chooseGame(splitInput));
+                    }
+                }
             }
         }
 
@@ -56,6 +73,10 @@ namespace GUIApp
                     else if(input[1].ToLower() == "calculator") {
                         currentMode = (int)mode.Calculator;
                         output = "Sending you to calculator mode...";
+                    }
+                    else if(input[1].ToLower() == "games") {
+                        currentMode = (int)mode.Games;
+                        output = "Sending you to games mode...";
                     }
                     else
                         output = "Mode not found";
@@ -237,6 +258,55 @@ namespace GUIApp
             }
 
             return output;
+        }
+
+        static string chooseGame(string[] input) {
+            string output = "";
+
+            if(input[0] == "rps") {
+                currentGame = (int)gameMode.RPS;
+                output = "Starting \"Rock, Paper, Scissors\"";
+            }
+            else if(input[0] == "exit") {
+                Console.Write("Are you sure you want to exit GAME MODE? (y/n): ");
+                if(Console.ReadLine() == "y") {
+                    Console.Clear();
+                    currentGame = (int)gameMode.noGame;
+                    currentMode = (int)mode.General;
+                }
+            }
+
+            return output;
+        }
+
+        static void playRPS() {
+            Console.Clear();
+            Console.WriteLine("Welcome to Rock, Paper, Scissors! Here are the rules:\nYou and an AI will both choose either Rock, Paper, or Scissors.\nScissors beats Paper, Paper beats Rock, and Rock beats Scissors.\n Whoever beats the other person wins!");
+            Console.Write("Type \"r\" for Rock, \"p\" for Paper, and \"s\" for Scissors:");
+            string playerChoice = Console.ReadLine();
+
+            Random rand = new Random();
+            int randNum = rand.Next(3);
+            string aiChoice = "";
+
+            if(randNum == 0)
+                aiChoice = "r";
+            else if(randNum == 1)
+                aiChoice = "p";
+            else if(randNum == 2)
+                aiChoice = "s";
+            
+            if((aiChoice == "p" && playerChoice == "r") || (aiChoice == "s" && playerChoice == "p") || (aiChoice == "r" && playerChoice == "s"))
+                Console.WriteLine("You Lose! The AI chose " + aiChoice);
+            else if(aiChoice == playerChoice)
+                Console.WriteLine("You Tie! The AI also chose " + aiChoice);
+            else
+                Console.WriteLine("You Win! The AI chose " + aiChoice);
+
+            Console.Write("That was a good game. Would you like to play again? (y/n): ");
+            if(Console.ReadLine() == "n")
+                currentGame = (int)gameMode.noGame;
+            Console.Clear();
         }
 
         static void Initialize() { 

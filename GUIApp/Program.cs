@@ -9,7 +9,7 @@ namespace GUIApp
     class Program
     {
         enum mode {General, Calculator, File, Games};
-        enum gameMode {noGame, RPS};
+        enum gameMode {noGame, RPS, TTT};
 
         static int currentMode = (int)mode.General;
 
@@ -49,6 +49,8 @@ namespace GUIApp
                 else if(currentMode == (int)mode.Games) {
                     if(currentGame == (int)gameMode.RPS)
                         playRPS();
+                    else if(currentGame == (int)gameMode.TTT)
+                        playTTT();
                     else if(currentGame == (int)gameMode.noGame) {
                         Console.Write("Which game would you like to play: ");
                         string input = Console.ReadLine();
@@ -267,6 +269,10 @@ namespace GUIApp
                 currentGame = (int)gameMode.RPS;
                 output = "Starting \"Rock, Paper, Scissors\"";
             }
+            else if(input[0] == "ttt") {
+                currentGame = (int)gameMode.TTT;
+                output = "Starting \"Tic, Tac, Toe\"";
+            }
             else if(input[0] == "exit") {
                 Console.Write("Are you sure you want to exit GAME MODE? (y/n): ");
                 if(Console.ReadLine() == "y") {
@@ -307,6 +313,44 @@ namespace GUIApp
             if(Console.ReadLine() == "n")
                 currentGame = (int)gameMode.noGame;
             Console.Clear();
+        }
+
+        static void playTTT() {
+            int player = 1;
+            string[,] grid = new string[3, 3];
+            for(int x = 0; x < grid.GetLength(0); x++) {
+                for(int y = 0; y < grid.GetLength(1); y++) {
+                    grid[x, y] = "   ";
+                }
+            }
+        
+            Console.WriteLine("Welcome to Tic-Tac-Toe! To play this game, you have to choose a spot to put your X or O. You need to get 3 of your symbol in a row to win! (This is a two player game)");
+            Console.WriteLine(grid[0, 0] + "\u2502" + grid[1, 0] + "\u2502" + grid[2, 0] + "\n\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u253C\u2500\u2500\n" + grid[0, 1] + "\u2502"  + grid[1, 1] + "\u2502"  + grid[2, 1] + "\n\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u253C\u2500\u2500\n"  + grid[0, 2] + "\u2502"  + grid[1, 2] + "\u2502"  + grid[2, 2] + "\n");
+            Console.Write("Type \"Start\" to start the game: ");
+            Console.ReadLine();
+            while(true) {
+                Console.Clear();
+                Console.WriteLine(grid[0, 0] + "\u2502" + grid[1, 0] + "\u2502" + grid[2, 0] + "\n\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u253C\u2500\u2500\n" + grid[0, 1] + "\u2502"  + grid[1, 1] + "\u2502"  + grid[2, 1] + "\n\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u253C\u2500\u2500\n"  + grid[0, 2] + "\u2502"  + grid[1, 2] + "\u2502"  + grid[2, 2] + "\n");
+                Console.Write("Player " + player + " to chose where you want to place your symbol, type \"row,column\": ");
+
+                string[] input = Console.ReadLine().Split(",");
+                if(grid[Int32.Parse(input[1]) - 1, Int32.Parse(input[0]) - 1] == "   ") {
+                    if(player == 1) {
+                        grid[Int32.Parse(input[1]) - 1, Int32.Parse(input[0]) - 1] = " X ";
+                        player = 2;
+                    }
+                    else if(player == 2) {
+                        grid[Int32.Parse(input[1]) - 1, Int32.Parse(input[0]) - 1] = " O ";
+                        player = 1;
+                    }
+                    else 
+                        Console.WriteLine("Something went wrong. Please try again.");
+                }
+                else
+                    Console.WriteLine("You can't place a piece there");
+                
+                
+            }
         }
 
         static void Initialize() { 

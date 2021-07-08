@@ -331,6 +331,16 @@ namespace GUIApp
             while(true) {
                 Console.Clear();
                 Console.WriteLine(grid[0, 0] + "\u2502" + grid[1, 0] + "\u2502" + grid[2, 0] + "\n\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u253C\u2500\u2500\n" + grid[0, 1] + "\u2502"  + grid[1, 1] + "\u2502"  + grid[2, 1] + "\n\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u253C\u2500\u2500\n"  + grid[0, 2] + "\u2502"  + grid[1, 2] + "\u2502"  + grid[2, 2] + "\n");
+
+                if((grid[0, 0] == " X " && grid[0, 1] == " X " && grid[0, 2] == " X ") || (grid[1, 0] == " X " && grid[1, 1] == " X " && grid[1, 2] == " X ") || (grid[2, 0] == " X " && grid[2, 1] == " X " && grid[2, 2] == " X ") || (grid[0, 0] == " X " && grid[1, 0] == " X " && grid[2, 0] == " X ") || (grid[0, 1] == " X " && grid[1, 1] == " X " && grid[2, 1] == " X ") || (grid[0, 2] == " X " && grid[1, 2] == " X " && grid[2, 2] == " X ") || (grid[0, 0] == " X " && grid[1, 1] == " X " && grid[2, 2] == " X ") || (grid[0, 2] == " X " && grid[1, 1] == " X " && grid[2, 0] == " X ")) {
+                    Console.WriteLine("Player 1 wins!");
+                    break;
+                }
+                else if((grid[0, 0] == " O " && grid[0, 1] == " O " && grid[0, 2] == " O ") || (grid[1, 0] == " O " && grid[1, 1] == " O " && grid[1, 2] == " O ") || (grid[2, 0] == " O " && grid[2, 1] == " O " && grid[2, 2] == " O ") || (grid[0, 0] == " O " && grid[1, 0] == " O " && grid[2, 0] == " O ") || (grid[0, 1] == " O " && grid[1, 1] == " O " && grid[2, 1] == " O ") || (grid[0, 2] == " O " && grid[1, 2] == " O " && grid[2, 2] == " O ") || (grid[0, 0] == " O " && grid[1, 1] == " O " && grid[2, 2] == " O ") || (grid[0, 2] == " O " && grid[1, 1] == " O " && grid[2, 0] == " O ")) {
+                    Console.WriteLine("Player 2 wins!");
+                    break;
+                }
+
                 Console.Write("Player " + player + " to chose where you want to place your symbol, type \"row,column\": ");
 
                 string[] input = Console.ReadLine().Split(",");
@@ -348,10 +358,16 @@ namespace GUIApp
                 }
                 else
                     Console.WriteLine("You can't place a piece there");
-                
-                
             }
+            Console.Write("Would you like to play again? (y/n): ");
+            if(Console.ReadLine() == "y") {
+                Console.Clear();
+                playTTT(); 
+            }
+            Console.Clear();
         }
+
+        
 
         static void Initialize() { 
             Console.Clear();
